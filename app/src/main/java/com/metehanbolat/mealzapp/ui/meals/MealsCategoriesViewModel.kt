@@ -6,6 +6,6 @@ import com.metehanbolat.mealzapp.model.response.MealResponse
 
 class MealsCategoriesViewModel(private val repository: MealsRepository = MealsRepository()) : ViewModel() {
     fun getMeals(): List<MealResponse>{
-        return repository.getMeals().categories
+        return repository.getMeals()?.categories.orEmpty()
     }
 }
