@@ -7,7 +7,7 @@ import com.metehanbolat.mealzapp.model.MealsRepository
 import com.metehanbolat.mealzapp.model.response.MealResponse
 import kotlinx.coroutines.*
 
-class MealsCategoriesViewModel(private val repository: MealsRepository = MealsRepository()) : ViewModel() {
+class MealsCategoriesViewModel(private val repository: MealsRepository = MealsRepository.getInstance()) : ViewModel() {
 
     init {
         viewModelScope.launch(Dispatchers.IO) {

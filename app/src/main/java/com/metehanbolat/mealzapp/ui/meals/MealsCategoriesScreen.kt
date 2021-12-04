@@ -1,7 +1,6 @@
 package com.metehanbolat.mealzapp.ui.meals
 
 import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -25,18 +24,18 @@ import com.metehanbolat.mealzapp.model.response.MealResponse
 import com.metehanbolat.mealzapp.ui.theme.MealzAppTheme
 
 @Composable
-fun MealsCategoriesScreen() {
+fun MealsCategoriesScreen(navigationCallback: (String) -> Unit) {
     val viewModel: MealsCategoriesViewModel = viewModel()
     val meals = viewModel.mealsState.value
     LazyColumn(contentPadding = PaddingValues(16.dp)) {
         items(meals){ meal ->
-            MealCategory(meal = meal)
+            MealCategory(meal = meal, navigationCallback)
         }
     }
 }
 
 @Composable
-fun MealCategory(meal: MealResponse) {
+fun MealCategory(meal: MealResponse, navigationCallback: (String) -> Unit) {
     var isExpanded by remember { mutableStateOf(false) }
     Card(
         shape = RoundedCornerShape(8.dp),
@@ -44,6 +43,9 @@ fun MealCategory(meal: MealResponse) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 16.dp)
+            .clickable {
+                navigationCallback(meal.id)
+            }
     ) {
         Row(
             modifier = Modifier.animateContentSize()
@@ -92,6 +94,6 @@ fun MealCategory(meal: MealResponse) {
 @Composable
 fun DefaultPreview() {
     MealzAppTheme {
-        MealsCategoriesScreen()
+        MealsCategoriesScreen({})
     }
 }
