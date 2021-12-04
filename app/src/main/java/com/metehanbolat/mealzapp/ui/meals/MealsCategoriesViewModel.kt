@@ -9,11 +9,8 @@ import kotlinx.coroutines.*
 
 class MealsCategoriesViewModel(private val repository: MealsRepository = MealsRepository()) : ViewModel() {
 
-    private val mealsJob = Job()
-
     init {
-        val scope = CoroutineScope(mealsJob + Dispatchers.IO)
-        scope.launch() {
+        viewModelScope.launch(Dispatchers.IO) {
             val meals = getMeals()
             mealsState.value = meals
         }
@@ -23,10 +20,5 @@ class MealsCategoriesViewModel(private val repository: MealsRepository = MealsRe
 
     private suspend fun getMeals() : List<MealResponse>{
         return repository.getMeals().categories
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        mealsJob.cancel()
     }
 }
