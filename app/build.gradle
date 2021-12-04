@@ -64,4 +64,5 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
 }
